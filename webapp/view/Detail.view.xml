@@ -1,0 +1,89 @@
+<mvc:View controllerName="Partner.BusinessPartner.controller.Detail" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.m.semantic" xmlns:footerbar="sap.ushell.ui.footerbar" >
+	<semantic:DetailPage id="page" navButtonPress="onNavBack" showNavButton="{device>/system/phone}" title="{i18n>detailTitle}"
+		busy="{detailView>/busy}" busyIndicatorDelay="{detailView>/delay}">
+		<semantic:content>
+			<ObjectHeader id="objectHeader" icon="sap-icon://activity-individual" title="{Firstname} {Lastname}" intro="{Partnerid}"></ObjectHeader>
+			<IconTabBar id="iconTabBar" class="sapUiResponsiveContentPadding">
+				<items>
+					<IconTabFilter id="iconTabBarFilter1" icon="sap-icon://addresses" tooltip="{i18n>detailIconTabBarInfo}"></IconTabFilter>
+					<IconTabFilter id="iconTabBarFilter2" icon="sap-icon://attachment" tooltip="{i18n>detailIconTabBarAttachments}"></IconTabFilter>
+				</items>
+			</IconTabBar>
+			<Table id="lineItemsList" width="auto" items="{PartnerToAddressNav}" updateFinished="onListUpdateFinished"
+				noDataText="{i18n>detailLineItemTableNoDataText}" busyIndicatorDelay="{detailView>/lineItemTableDelay}" class="sapUiResponsiveMargin">
+				<headerToolbar>
+					<Toolbar id="lineItemsToolbar">
+						<Title id="lineItemsHeader" text="{detailView>/lineItemListTitle}"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://add-contact" text="{i18>textButAddress}" press="onAddAddress"/>
+					</Toolbar>
+				</headerToolbar>
+				<columns>
+					<Column width="11%">
+						<Label text="{i18n>detailLineItemTableIDColumnNumber}"/>
+					</Column>
+					<Column width="11%" minScreenWidth="Tablet" demandPopin="true" hAlign="Right">
+						<Label text="{i18n>detailLineItemTableIDColumnCity}"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Right">
+						<Label text="{i18n>detailLineItemTableIDColumnStreet}"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Right">
+						<Label text="{i18n>detailLineItemTableIDColumnHouse}"/>
+					</Column>
+					<Column width="11%" minScreenWidth="Tablet" demandPopin="true" hAlign="Right">
+						<Label text="{i18n>detailLineItemTableIDColumnRoom}"/>
+					</Column>
+					<Column width="5%" hAling="End">
+						<Text text=""/>
+					</Column>
+					<Column width="5%" hAling="End">
+						<Text text=""/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{Addressid}" />
+							<HBox alignItems="Center" justifyContent="SpaceAround">
+							<Text text="{City}" visible="{detailView>/view}"/>
+							<Input value="{City}" visible="{detailView>/edit}"/>	
+							</HBox>
+							<HBox alignItems="Center" justifyContent="SpaceAround">
+							<Text text="{Street}" visible="{detailView>/view}"/>
+							<Input value="{Street}" visible="{detailView>/edit}"/>	
+							</HBox>
+							<HBox alignItems="Center" justifyContent="SpaceAround">
+							<Text text="{House}" visible="{detailView>/view}"/>
+							<Input value="{House}" visible="{detailView>/edit}"/>
+							</HBox>
+							<HBox alignItems="Center" justifyContent="SpaceAround">
+							<Text text="{Room}" visible="{detailView>/view}"/>
+							<Input value="{Room}" visible="{detailView>/edit}"/>
+							</HBox>
+							
+							<Button icon="{detailView>/icon}" press="onEditAddress" />
+							<Button icon="sap-icon://delete" press="onDeleteAddress" />
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</semantic:content>
+		<semantic:editAction>
+			<semantic:EditAction id="edit" press="onEdit"/>
+		</semantic:editAction>
+		<semantic:customFooterContent>
+			<Button enabled="true" id="deleteButton" press="onDelete" text="Delete"/>
+		</semantic:customFooterContent>
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction id="shareEmail" press="onShareEmailPress"/>
+		</semantic:sendEmailAction>
+		<semantic:shareInJamAction>
+			<semantic:ShareInJamAction id="shareInJam" visible="{FLP>/isShareInJamActive}" press="onShareInJamPress"/>
+		</semantic:shareInJamAction>
+		<semantic:saveAsTileAction>
+			<footerbar:AddBookmarkButton id="shareTile" title="{detailView>/saveAsTileTitle}"/>
+		</semantic:saveAsTileAction>
+	</semantic:DetailPage>
+</mvc:View>
